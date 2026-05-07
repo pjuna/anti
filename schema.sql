@@ -8,13 +8,16 @@ CREATE TABLE public.profiles (
     phone_number text,
     privacy_consent boolean DEFAULT false,
     class_id uuid, -- 학생인 경우 소속 수업
+    grade integer,
+    class_room integer,
+    student_number integer,
     created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 -- 2. Signup Codes Table (그룹 가입 코드)
 CREATE TABLE public.signup_codes (
     code text PRIMARY KEY,
-    role text CHECK (role IN ('teacher', 'student')) NOT NULL,
+    role text CHECK (role IN ('admin', 'teacher', 'student')) NOT NULL,
     group_name text NOT NULL,
     is_active boolean DEFAULT true,
     created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
